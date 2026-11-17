@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f6f1"><title>LabLeaf | Health report explainer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <header><a class="brand" href="/"><span class="brand-mark">L</span><span>LabLeaf</span></a><span class="header-note">A student health information project</span></header>
+    <section class="hero"><p class="eyebrow">A simple report reader</p><h1>Understand your results.<br><em>Ask better questions.</em></h1><p class="hero-copy">Paste text from a lab report and get a plain-language summary of a few common results, plus general food ideas to discuss with a health professional.</p></section>
+    <section class="safety"><span class="safety-icon">i</span><p><strong>This tool does not diagnose or cure disease.</strong> A lab result needs context. It cannot create a personal medical diet or decide that a food is forbidden. Review results and diet changes with a doctor or registered dietitian.</p></section>
+    <section class="main-grid">
+      <form id="scan-form" class="input-card">
+        <div class="step-label"><span>01</span> REPORT TEXT</div>
+        <label for="report">Paste the readable text from your report</label>
+        <p class="helper">Upload a clear report image, paste its text, or choose a TXT/CSV file. No desktop OCR installation is needed. For images, the browser downloads the OCR engine and English model once; the image is read on your device. Remove your name and personal details first.</p>
+        <label class="file-picker" for="file"><span class="file-icon">＋</span><span><strong>Choose a report image or text file</strong><small id="filename">Image · TXT · CSV</small></span><input id="file" type="file" accept="image/*,.txt,.csv,text/plain,text/csv"></label>
+        <textarea id="report" name="text" maxlength="100000" placeholder="Or paste report text here…"></textarea>
+        <div class="form-footer"><span id="char-count">0 / 100,000</span><button class="primary" id="submit" type="submit">Read report <span aria-hidden="true">→</span></button></div>
+        <div id="scan-status" class="scan-status" hidden aria-live="polite"></div>
+        <p class="privacy-note"><span aria-hidden="true">⌑</span> The report stays in your browser. Only the OCR software files are downloaded for image reading.</p>
+      </form>
+      <section class="result-card" id="results" aria-live="polite">
+        <div class="step-label"><span>02</span> YOUR SUMMARY</div>
+        <div id="placeholder" class="placeholder"><div class="placeholder-art"><span></span><span></span><span></span></div><h2>Your report summary will appear here</h2><p>We’ll look for labeled test results across the report and compare them with printed ranges when those ranges are readable.</p></div>
+        <div id="summary" hidden></div>
+        <fieldset id="preference-panel" class="preference-panel" hidden>
+          <legend>What do you usually eat?</legend>
+          <p>Choose one option to see a matching sample menu.</p>
+          <div class="choice-row">
+            <label class="choice"><input type="radio" name="preference" value="vegetarian"><span>Vegetarian</span></label>
+            <label class="choice"><input type="radio" name="preference" value="non-vegetarian"><span>Non-vegetarian</span></label>
+          </div>
+          <button id="diet-button" class="primary" type="button" disabled>Show sample menu <span aria-hidden="true">→</span></button>
+        </fieldset>
+        <div id="diet-result" class="diet-result" hidden></div>
+        <section id="review-box" class="review-box" hidden aria-live="polite"></section>
+        <section id="limits-box" class="limits-box" hidden></section>
+        <section id="food-question" class="food-question" hidden>
+          <h3>Ask about a food</h3>
+          <p>Type a question like “Can I eat an apple?”</p>
+          <form id="question-form"><label class="sr-only" for="food-input">Ask if you can eat a food</label><div class="question-row"><input id="food-input" type="text" maxlength="120" placeholder="Can I eat an apple?"><button type="submit" class="primary">Ask</button></div></form>
+          <div id="food-answer" class="food-answer" hidden aria-live="polite"></div>
+        </section>
+      </section>
+    </section>
+    <section class="how"><div><p class="eyebrow">Built for learning</p><h2>More report values</h2></div><div class="how-copy"><p><strong>Common lab panels and other labeled results</strong><br>The scanner tries to read test-name/value rows across a report, not just three markers. It compares values only when a range is printed on the same line; other results are marked for clinician review.</p><p>It cannot diagnose every disease. OCR and report layouts vary, so check extracted values against the original. The vegetarian/non-vegetarian menu is general and is not a treatment plan for an abnormal result.</p></div></section>
+    <footer><span>LABLEAF · STATIC WEB APP</span><span>General information only · Not a substitute for medical care</span></footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
